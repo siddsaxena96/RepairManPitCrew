@@ -12,6 +12,7 @@ TagManager:
   - BULLET
   - NANGE
   - POWERUP
+  - CYCLIST
   layers:
   - Default
   - TransparentFX

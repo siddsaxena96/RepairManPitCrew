@@ -35,7 +35,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         WaitForSeconds wait = new WaitForSeconds(nangeSpawnFrequency);
         while (spawnOn)
-       {
+        {
             yield return wait;
             Transform tPosition = nangeSpawnPos[Random.Range(0, nangeSpawnPos.Length)];
             Transform nanga = Instantiate(nangeInsaan[Random.Range(0, nangeInsaan.Length)], tPosition.position, Quaternion.identity, tPosition);
@@ -48,8 +48,11 @@ public class ObstacleSpawner : MonoBehaviour
         Vector3 pos = nanga.position;
         while (true)
         {
-            pos += transform.right * Time.deltaTime * MoveSpeed;
-            nanga.position = pos + axis * Mathf.Sin(Time.time * frequency) * magnitude;
+            if (nanga != null && nanga.gameObject.activeInHierarchy)
+            {
+                pos += transform.right * Time.deltaTime * MoveSpeed;
+                nanga.position = pos + axis * Mathf.Sin(Time.time * frequency) * magnitude;
+            }
             yield return null;
         }
     }

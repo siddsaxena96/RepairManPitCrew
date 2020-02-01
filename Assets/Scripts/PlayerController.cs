@@ -21,18 +21,22 @@ public class PlayerController : MonoBehaviour
     public float minX, maxX = 0f;
     private int currentRow = 3;
     private float movex;
+    private Coroutine dockingCoroutine = null;
+    private bool canDock = true;
+    private float dockingTime = 2f;
+
 
     public void Update()
     {
         if (move)
         {
             movex = Input.GetAxis("Horizontal");
-            bool flipSprite = (spriteRenderer.flipX ? (movex > 0.01f) : (movex < 0.01f));
+            //bool flipSprite = (spriteRenderer.flipX ? (movex > 0.01f) : (movex < 0.01f));
 
-            if (flipSprite)
-            {
-                spriteRenderer.flipX = !spriteRenderer.flipX;
-            }
+            // if (flipSprite)
+            // {
+            //     spriteRenderer.flipX = !spriteRenderer.flipX;
+            // }
 
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -49,13 +53,21 @@ public class PlayerController : MonoBehaviour
             //animator.Play("PlayerIdle");
         }
 
-        if(fireEnable)
+        if (fireEnable)
         {
-            if(Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 Transform fired = Instantiate(wrenchTransform, this.transform.position, this.transform.rotation);
                 fired.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed, ForceMode2D.Impulse);
                 Destroy(fired.gameObject, 1.5f);
+            }
+        }
+
+        if(canDock == false)
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                // start docking game
             }
         }
     }
@@ -91,6 +103,36 @@ public class PlayerController : MonoBehaviour
                 CameraShake.instance.Shake(0.1f, 0.5f);
                 AttemptRowJump(false);
                 break;
-        }        
+            case "CYCLIST":
+                if (dockingCoroutine == null)
+                    dockingCoroutine = StartCoroutine(DockingCoroutine());
+                break;
+            case "POWERUP":
+                break;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        switch (col.tag)
+        {
+            case "CYCLIST":
+                if (dockingCoroutine != null)
+                {
+                    canDock = true;
+                    StopCoroutine(dockingCoroutine);
+                    dockingCoroutine = null;
+                }
+                break;
+        }
+    }
+
+    IEnumerator DockingCoroutine()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(dockingTime);
+            canDock = false;
+        }
     }
 }

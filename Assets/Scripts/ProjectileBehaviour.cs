@@ -2,28 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileBehaviour : MonoBehaviour
-{
+public class ProjectileBehaviour : MonoBehaviour {
     [SerializeField] private GameObject powerUp = null;
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start () {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update () {
+
     }
 
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if(col.gameObject.tag == "NANGE")
-        {
-            print("col");
-            Instantiate(powerUp, col.transform.position, Quaternion.identity);
-            Destroy(col.gameObject);
+    void OnTriggerEnter2D (Collider2D col) {
+        if (col.gameObject.tag == "NANGE") {
+            print ("col");
+            Instantiate (powerUp, col.transform.position, Quaternion.identity);
+            Destroy (col.gameObject);
+            Destroy (this.gameObject);
         }
     }
 }

@@ -30,7 +30,6 @@ public class RepairPlayerMaster : MonoBehaviour
         {
             playerRB.mass = 10;
             playerRB.gravityScale = 10;
-        }
-        
+        }    
     }
 }
