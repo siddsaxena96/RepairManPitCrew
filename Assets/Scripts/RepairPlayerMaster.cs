@@ -23,10 +23,12 @@ public class RepairPlayerMaster : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             playerRB.gravityScale = 1;
+            playerRB.mass = 1;
             playerRB.AddForce(new Vector2(0, 1) * power, ForceMode2D.Impulse);
         }
         if(Input.GetKeyUp(KeyCode.Space))
         {
+            playerRB.mass = 10;
             playerRB.gravityScale = 10;
         }
         

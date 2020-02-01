@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed = 7;
     [SerializeField] private Vector2 velocity = Vector2.zero;
     public bool move = true;
+    public bool fireEnable = true;
+    [SerializeField] private Transform wrenchTransform = null;
+    [SerializeField] private int projectileSpeed = 10;
+
     public float minX, maxX = 0f;
     private int currentRow = 3;
     private float movex;
@@ -43,6 +47,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             //animator.Play("PlayerIdle");
+        }
+
+        if(fireEnable)
+        {
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+                Transform fired = Instantiate(wrenchTransform, this.transform.position, this.transform.rotation);
+                fired.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed, ForceMode2D.Impulse);
+                Destroy(fired.gameObject, 1.5f);
+            }
         }
     }
 

@@ -19,6 +19,7 @@ public class RepairMaster : MonoBehaviour
     [SerializeField] private Image backgroundImage = null;
     [SerializeField] private GameObject player = null;
     [SerializeField] private GameObject npc = null;
+    [SerializeField] private ProgressBar progressBar = null;
 
     [Header("Game Settings")]
     [SerializeField] private difficultyLevel difficulty = difficultyLevel.Basic;
@@ -85,12 +86,27 @@ public class RepairMaster : MonoBehaviour
         while (true)
         {
             progress += (float)playerScoreMultiplier * repairStatus;
-            Color alphaChanel = new Color();
-            alphaChanel = (repairStatus == 1 ? Color.green : Color.red);
-            alphaChanel.a = (repairStatus == 1 ? ((progress + 150f) / 255) : (0.8f - ((progress + 150f) / 255)));
-            backgroundImage.color = alphaChanel;
+            progress = ClampedFloat(progress, 0, 100);
+            progressBar.BarValue = progress;
+            //Color alphaChanel = new Color();
+            // alphaChanel = (repairStatus == 1 ? Color.green : Color.red);
+            // alphaChanel.a = (repairStatus == 1 ? ((progress + 150f) / 255) : (0.8f - ((progress + 150f) / 255)));
+            // backgroundImage.color = alphaChanel;
             yield return wait;
         }
+    }
+
+    private float ClampedFloat(float val,float min, float max)
+    {
+        if(val < min )
+        {
+            val = min;
+        }
+        if(val > max)
+        {
+            val = max;
+        }
+        return val;
     }
 
     void Update()
@@ -120,7 +136,7 @@ public class RepairMaster : MonoBehaviour
         SetDifficulty(diff);
         while (progress != WinValue)
         {
-            npcRB.gravityScale = 10;
+            npcRB.gravityScale = 20;
             yield return new WaitForSeconds(UnityEngine.Random.Range(npcMinRefreshTime, npcMaxRefreshTime));
             npcRB.gravityScale = 1;
             npcRB.AddForce(new Vector2(0, 1) * npcPower, ForceMode2D.Impulse);
