@@ -9,6 +9,9 @@ TagManager:
   - Obstacle
   - RampUp
   - RampDown
+  - BULLET
+  - NANGE
+  - POWERUP
   layers:
   - Default
   - TransparentFX

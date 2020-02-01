@@ -217,11 +217,11 @@ MonoBehaviour:
   - {fileID: 969136854}
   - {fileID: 278778894}
   nangeInsaan:
-  - {fileID: 1184441316419908997, guid: 8908f584d26267c48a03b91d1398b6b6, type: 3}
-  nangeSpawnFrequency: 15
+  - {fileID: 1502721732351446397, guid: 4c2ee968678cd67488c5039c2f480e72, type: 3}
+  nangeSpawnFrequency: 2
   MoveSpeed: 2
   frequency: 1
-  magnitude: 1
+  magnitude: 2
 --- !u!1 &268486283
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,7 +701,7 @@ PrefabInstance:
         type: 3}
       propertyPath: wrenchTransform
       value: 
-      objectReference: {fileID: 1184441316419908997, guid: 8908f584d26267c48a03b91d1398b6b6,
+      objectReference: {fileID: 3849245627219386392, guid: 9ee512e1e1543324c848014b157f4c0e,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89766559525c6974985368bd0fb231ea, type: 3}
