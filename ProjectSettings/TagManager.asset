@@ -6,6 +6,9 @@ TagManager:
   tags:
   - PLAYER
   - NPC
+  - Obstacle
+  - RampUp
+  - RampDown
   layers:
   - Default
   - TransparentFX
