@@ -7,16 +7,22 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb = null;
     [SerializeField] private Animator animator = null;
-    [SerializeField] private SpriteRenderer spriteRenderer = null;
     [Space]
+
     public int rowCount = 5;
+    [SerializeField] private int currentRow = 3;
     [SerializeField] private Vector2 rowJumpDistance = Vector2.zero;
+    [SerializeField] private Vector3 scaleChange = Vector2.zero;
     [Space]
+
     public float maxSpeed = 7;
     [SerializeField] private Vector2 velocity = Vector2.zero;
     public bool move = true;
+    [Space]
+
     public bool fireEnable = true;
     [SerializeField] private Transform wrenchTransform = null;
+    [SerializeField] private Transform wrenchSpawnPos = null;
     [SerializeField] private int projectileSpeed = 10;
     [SerializeField] private RepairMaster repairMaster = null;
 
@@ -25,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ProgressBarCircle dockPB = null;
     [SerializeField] private GameObject eButton = null;
     public float minX, maxX = 0f;
-    private int currentRow = 3;
+
     private float movex;
     private Coroutine dockingCoroutine, dTimeCoroutine = null;
     private bool canDock = true;
@@ -37,7 +43,7 @@ public class PlayerController : MonoBehaviour
         if (move && canDock)
         {
             movex = Input.GetAxis("Horizontal");
-            //bool flipSprite = (spriteRenderer.flipX ? (movex > 0.01f) : (movex < 0.01f));
+            //bool flipSprite = (spriteRenderer.flipX ? (movex > 0.05f) : (movex < 0.05f));
 
             // if (flipSprite)
             // {
@@ -63,7 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                Transform fired = Instantiate(wrenchTransform, this.transform.position, this.transform.rotation);
+                Transform fired = Instantiate(wrenchTransform, wrenchSpawnPos.position, this.transform.rotation);
                 fired.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed, ForceMode2D.Impulse);
                 Destroy(fired.gameObject, 1.5f);
             }
@@ -88,11 +94,12 @@ public class PlayerController : MonoBehaviour
 
     public void AttemptRowJump(bool up)
     {
-        if (up && currentRow == 5)
+        if (up && currentRow == rowCount)
             return;
         if (!up && currentRow == 1)
             return;
         rb.position += up ? rowJumpDistance : -rowJumpDistance;
+        transform.localScale += up ? -scaleChange : scaleChange;
         currentRow += up ? 1 : -1;
     }
 
@@ -101,22 +108,9 @@ public class PlayerController : MonoBehaviour
         switch (other.tag)
         {
             case "Obstacle":
-                if (canDock)
-                    CameraShake.instance.Shake(0.1f, 0.5f);
-                break;
-            case "RampUp":
-                if (canDock == true)
-                {
-                    CameraShake.instance.Shake(0.1f, 0.5f);
-                    AttemptRowJump(true);
-                }
-                break;
-            case "RampDown":
-                if (canDock == true)
-                {
-                    CameraShake.instance.Shake(0.1f, 0.5f);
-                    AttemptRowJump(false);
-                }
+                CameraShake.instance.Shake(0.05f, 0.5f);
+                AttemptRowJump(false);
+                //transform.position = new Vector2(-8, transform.position.y);
                 break;
             case "CYCLIST":
                 if (dockingCoroutine == null)
