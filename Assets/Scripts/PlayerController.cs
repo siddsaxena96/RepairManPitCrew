@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,18 +18,23 @@ public class PlayerController : MonoBehaviour
     public bool fireEnable = true;
     [SerializeField] private Transform wrenchTransform = null;
     [SerializeField] private int projectileSpeed = 10;
+    [SerializeField] private RepairMaster repairMaster = null;
 
+    [Space]
+    [SerializeField] private difficultyLevel difficulty = difficultyLevel.Basic;
+    [SerializeField] private ProgressBarCircle dockPB = null;
+    [SerializeField] private GameObject eButton = null;
     public float minX, maxX = 0f;
     private int currentRow = 3;
     private float movex;
-    private Coroutine dockingCoroutine = null;
+    private Coroutine dockingCoroutine, dTimeCoroutine = null;
     private bool canDock = true;
     private float dockingTime = 2f;
 
 
     public void Update()
     {
-        if (move)
+        if (move && canDock)
         {
             movex = Input.GetAxis("Horizontal");
             //bool flipSprite = (spriteRenderer.flipX ? (movex > 0.01f) : (movex < 0.01f));
@@ -63,11 +69,13 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(canDock == false)
+        if (canDock == false)
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 // start docking game
+                eButton.SetActive(false);
+                repairMaster.StartRepairMode(difficulty, 10);
             }
         }
     }
@@ -93,15 +101,22 @@ public class PlayerController : MonoBehaviour
         switch (other.tag)
         {
             case "Obstacle":
-                CameraShake.instance.Shake(0.1f, 0.5f);
+                if (canDock)
+                    CameraShake.instance.Shake(0.1f, 0.5f);
                 break;
             case "RampUp":
-                CameraShake.instance.Shake(0.1f, 0.5f);
-                AttemptRowJump(true);
+                if (canDock == true)
+                {
+                    CameraShake.instance.Shake(0.1f, 0.5f);
+                    AttemptRowJump(true);
+                }
                 break;
             case "RampDown":
-                CameraShake.instance.Shake(0.1f, 0.5f);
-                AttemptRowJump(false);
+                if (canDock == true)
+                {
+                    CameraShake.instance.Shake(0.1f, 0.5f);
+                    AttemptRowJump(false);
+                }
                 break;
             case "CYCLIST":
                 if (dockingCoroutine == null)
@@ -120,8 +135,12 @@ public class PlayerController : MonoBehaviour
                 if (dockingCoroutine != null)
                 {
                     canDock = true;
+                    if (dTimeCoroutine != null)
+                        StopCoroutine(dTimeCoroutine);
                     StopCoroutine(dockingCoroutine);
                     dockingCoroutine = null;
+                    dockPB.gameObject.SetActive(false);
+                    eButton.SetActive(false);
                 }
                 break;
         }
@@ -129,10 +148,37 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DockingCoroutine()
     {
-        while(true)
+        if (dTimeCoroutine == null)
+            StartCoroutine(dockLoader(dockingTime));
+        yield return new WaitForSeconds(dockingTime);
+        //this.transform.GetComponent<BoxCollider2D>().isTrigger = true;  // switch off when docking completed!
+        canDock = false;
+        REPAIR();
+    }
+
+    IEnumerator dockLoader(float dockingTime)
+    {
+        dockPB.gameObject.SetActive(true);
+        float normalizedTime = 0;
+        while (normalizedTime <= 1f)
         {
-            yield return new WaitForSeconds(dockingTime);
-            canDock = false;
+            dockPB.BarValue = normalizedTime * 100;
+            normalizedTime += Time.deltaTime / dockingTime;
+            yield return null;
         }
+        dockPB.gameObject.SetActive(false);
+        eButton.SetActive(true);
+    }
+
+    void REPAIR()
+    {
+        repairMaster.OnRepaired += OnRepairCompleted;
+    }
+
+    private void OnRepairCompleted(bool status)
+    {
+        // true - Completed
+        // false - failed
+        print("Won : " + status);
     }
 }

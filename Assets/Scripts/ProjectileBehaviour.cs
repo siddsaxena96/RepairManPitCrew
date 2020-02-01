@@ -16,7 +16,6 @@ public class ProjectileBehaviour : MonoBehaviour {
 
     void OnTriggerEnter2D (Collider2D col) {
         if (col.gameObject.tag == "NANGE") {
-            print ("col");
             Instantiate (powerUp, col.transform.position, Quaternion.identity);
             Destroy (col.gameObject);
             Destroy (this.gameObject);

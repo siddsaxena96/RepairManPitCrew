@@ -37,9 +37,10 @@ public class RepairMaster : MonoBehaviour
     private int playerScoreMultiplier = -1;
     [SerializeField] private float npcPower = 10;
     private int repairStatus = -1;
+    public event Action<bool> OnRepaired = null;
+    private bool completed = false;
 
-
-    void Start()
+    void Awake()
     {
         if (repairGameobject.activeInHierarchy)
         {
@@ -57,7 +58,7 @@ public class RepairMaster : MonoBehaviour
         if (colMaster != null)
         {
             colMaster.InProgress += RepairProgress;
-            StartRepairMode(difficultyLevel.Basic);
+            StartRepairMode(difficultyLevel.Basic, 10);
         }
 
 
@@ -96,13 +97,13 @@ public class RepairMaster : MonoBehaviour
         }
     }
 
-    private float ClampedFloat(float val,float min, float max)
+    private float ClampedFloat(float val, float min, float max)
     {
-        if(val < min )
+        if (val < min)
         {
             val = min;
         }
-        if(val > max)
+        if (val > max)
         {
             val = max;
         }
@@ -114,12 +115,31 @@ public class RepairMaster : MonoBehaviour
 
     }
 
-    public void StartRepairMode(difficultyLevel diff)
+    public void StartRepairMode(difficultyLevel diff, float timer)
     {
+        completed = false;
         repairGameobject.SetActive(true);
         CheckAndClearCoroutine();
-        playerCoroutine = StartCoroutine(PlayerCoroutine(diff));
-        npcCoroutine = StartCoroutine(NPCCoroutine(diff));
+        StartCoroutine(RepairExpireTimer(diff, timer));
+    }
+
+    private IEnumerator RepairExpireTimer(difficultyLevel diff, float timer)
+    {
+        if (playerCoroutine == null)
+            playerCoroutine = StartCoroutine(PlayerCoroutine(diff));
+        if (npcCoroutine == null)
+            npcCoroutine = StartCoroutine(NPCCoroutine(diff));
+        yield return new WaitForSeconds(timer);
+
+        if (playerCoroutine != null)
+            StopCoroutine(playerCoroutine);
+        if (npcCoroutine != null)
+            StopCoroutine(npcCoroutine);
+        if (completed == false)
+        {
+            OnRepaired?.Invoke(false);
+        }
+        repairGameobject.SetActive(false);
     }
 
     private IEnumerator PlayerCoroutine(difficultyLevel diff)
@@ -146,6 +166,9 @@ public class RepairMaster : MonoBehaviour
             StopCoroutine(timerCoroutine);
             timerCoroutine = null;
         }
+        completed = true;
+        OnRepaired?.Invoke(true);
+        repairGameobject.SetActive(false);
 
     }
 
@@ -183,5 +206,6 @@ public class RepairMaster : MonoBehaviour
         if (npcCoroutine != null)
             npcCoroutine = null;
         progress = -1;
+        progressBar.BarValue = 0;
     }
 }

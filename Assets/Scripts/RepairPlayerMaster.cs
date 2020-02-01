@@ -11,7 +11,7 @@ public class RepairPlayerMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(this.transform.GetComponent<Rigidbody2D>())
+        if (this.transform.GetComponent<Rigidbody2D>())
         {
             playerRB = this.transform.GetComponent<Rigidbody2D>();
         }
@@ -20,16 +20,17 @@ public class RepairPlayerMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             playerRB.gravityScale = 1;
             playerRB.mass = 1;
             playerRB.AddForce(new Vector2(0, 1) * power, ForceMode2D.Impulse);
+
         }
-        if(Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            playerRB.mass = 10;
-            playerRB.gravityScale = 10;
-        }    
+            playerRB.mass = 1;
+            playerRB.gravityScale = 1;
+        }
     }
 }
