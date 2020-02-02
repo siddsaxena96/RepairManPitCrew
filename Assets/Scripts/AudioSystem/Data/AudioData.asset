@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030e0f6c3b44e5b4a906d12146cad470, type: 3}
+  m_Name: AudioData
+  m_EditorClassIdentifier: 
+  heroSounds:
+    heroDecorativeCelebrationVariants:
+    - {fileID: 8300000, guid: ab66bc9f75fe4ba40bd397b53cd02f69, type: 3}
+    - {fileID: 8300000, guid: cd68ea70eaeab554bb3cc60a3d44f7d5, type: 3}
+    - {fileID: 8300000, guid: d0120a7caa77c1d47a15de2ffad98b70, type: 3}
+    heroSimpleCelebrationVariants:
+    - {fileID: 8300000, guid: 4ab87612bee0f3847b38d187c55ada2c, type: 3}
+    - {fileID: 8300000, guid: 558d361d3085a6343b90d0359859893d, type: 3}
+    - {fileID: 8300000, guid: d2c2d051a11480f40940b94cd9da4fc6, type: 3}
+  primarySystemSounds:
+    tapVariants:
+    - {fileID: 8300000, guid: fe09609b0baec044f874850eeacfa5d9, type: 3}
+    - {fileID: 8300000, guid: 26b9774ca1995d74ebad41fdf51ded05, type: 3}
+    - {fileID: 8300000, guid: d5651b8e23c366044a608bfd29f60eb3, type: 3}
+    - {fileID: 8300000, guid: b170918349ff59c4a97f17d99b45bfc5, type: 3}
+    navigationBackwardSelection: {fileID: 8300000, guid: 38992715240a8b8459605475620fb71e,
+      type: 3}
+    navigationBackwardSelectionMinimal: {fileID: 8300000, guid: f8d95d53375328f419fea46e8833c52e,
+      type: 3}
+    navigationForwardSelection: {fileID: 8300000, guid: 97afe69253b989b4ca3f4692b79668be,
+      type: 3}
+    navigationForwardSelectionMinimal: {fileID: 8300000, guid: 623fc3a94605c0649aa85dc19e9a420b,
+      type: 3}
+    navigationHoverTap: {fileID: 8300000, guid: 2e1cca235f4e084419f9da1b7ef85ab8,
+      type: 3}
+    navigationSelectionCompleteCelebration: {fileID: 8300000, guid: 045cb16d804d1ad4e95e963f0de8e27b,
+      type: 3}
+    stateChangeConfirmDown: {fileID: 8300000, guid: 671340825e962fd439f2b032a71ffe78,
+      type: 3}
+    stateChangeConfirmUp: {fileID: 8300000, guid: 5ac32aa334ba1d84593b0041a74249ca,
+      type: 3}
+    uiCameraShuter: {fileID: 8300000, guid: 554203f3080aea043a3746f86e5093cc, type: 3}
+    uiLock: {fileID: 8300000, guid: 16736c1ce3d205a4eaeefd5a89dcf431, type: 3}
+    uiUnlock: {fileID: 8300000, guid: 70d4682da99df5c409ffffff6de1fa0c, type: 3}
+  secondarySystemSounds:
+    alertErrorVariants:
+    - {fileID: 8300000, guid: a7c58cdba12ae4e4cab9abdd634f1930, type: 3}
+    - {fileID: 8300000, guid: c7d9b97e6d62fd24aa4873affd8169f2, type: 3}
+    - {fileID: 8300000, guid: 1b62102ed0de34546995d92983de0c9f, type: 3}
+    alertErrorVariant1: {fileID: 8300000, guid: a7c58cdba12ae4e4cab9abdd634f1930,
+      type: 3}
+    alertErrorVariant2: {fileID: 8300000, guid: c7d9b97e6d62fd24aa4873affd8169f2,
+      type: 3}
+    alertErrorVariant3: {fileID: 8300000, guid: 1b62102ed0de34546995d92983de0c9f,
+      type: 3}
+    navigationTransitionLeft: {fileID: 8300000, guid: 81ddf42de9bafb64db36a4ad954a0496,
+      type: 3}
+    navigationTransitionRight: {fileID: 8300000, guid: 5b195418798447047833a6c19c360563,
+      type: 3}
+    navigationUnavailableSelection: {fileID: 8300000, guid: bd3db5df7bca09b48ab12e51e829acbc,
+      type: 3}
+    navigationCancel: {fileID: 8300000, guid: 284eb41eb9f5cad48a8ac53650be73cc, type: 3}
+    uiLoading: {fileID: 8300000, guid: d536565d750fc0845bab90e7631534df, type: 3}
+    uiRefreshFeed: {fileID: 8300000, guid: 9a25a1d1f96487444ab6e6e13cf34b05, type: 3}
+  correctAnswer: {fileID: 8300000, guid: 7dafbd0b438036843a9d58053f786a58, type: 3}
+  wrongAnswer: {fileID: 8300000, guid: 03ffd608f0c0f864f8e88a438f15f7a2, type: 3}

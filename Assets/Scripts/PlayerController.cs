@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject eButton = null;
     public float minX, maxX = 0f;
 
+    public AudioClip ohyeah, oh, bicycle, creepyLaugh, kharate, powerUp, negative = null;
     private float movex;
     private Coroutine dockingCoroutine, dTimeCoroutine = null;
     private bool canDock = true;
@@ -110,11 +111,14 @@ public class PlayerController : MonoBehaviour
             case "Obstacle":
                 CameraShake.instance.Shake(0.05f, 0.5f);
                 AttemptRowJump(false);
+                AudioPlayer.Instance.PlayOneShot(negative);
                 //transform.position = new Vector2(-8, transform.position.y);
                 break;
             case "CYCLIST":
                 if (dockingCoroutine == null)
                     dockingCoroutine = StartCoroutine(DockingCoroutine());
+                AudioPlayer.Instance.PlayOneShot(ohyeah);
+
                 break;
             case "POWERUP":
                 break;
@@ -167,6 +171,7 @@ public class PlayerController : MonoBehaviour
     void REPAIR()
     {
         repairMaster.OnRepaired += OnRepairCompleted;
+        AudioPlayer.Instance.PlayOneShot(bicycle);
     }
 
     private void OnRepairCompleted(bool status)
