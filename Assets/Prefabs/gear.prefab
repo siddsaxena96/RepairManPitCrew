@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUp: {fileID: 5103509208960587395, guid: 52d7b03fe6178b24998c05ea52819ff9, type: 3}
-  oh: {fileID: 0}
+  oh: {fileID: 8300000, guid: 98b7086bc1756cb4fa60758da2387f86, type: 3}
 --- !u!95 &6174920004426612101
 Animator:
   serializedVersion: 3

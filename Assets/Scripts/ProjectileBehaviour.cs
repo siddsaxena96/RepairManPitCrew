@@ -14,7 +14,7 @@ public class ProjectileBehaviour : MonoBehaviour
             AudioPlayer.Instance.PlayOneShot(oh);
             //Instantiate(powerUp, col.transform.position, Quaternion.identity);
             Debug.Log("ASD");
-            CameraShake.instance.Shake(0.1f,0.5f);
+            CameraShake.instance.Shake(0.05f,0.5f);
             Destroy(col.gameObject);
             Destroy(this.gameObject);
         }
