@@ -14,14 +14,14 @@ public class RepairRBHelper : MonoBehaviour
         if (this.transform.localPosition.y < -200)
         {
             this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            this.transform.localPosition = new Vector3(0, -200, 0);
+            this.transform.localPosition = new Vector3(0, -180, 0);
 
 
         }
         if (this.transform.localPosition.y > 200)
         {
             this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            this.transform.localPosition = new Vector3(0, 100, 0);
+            this.transform.localPosition = new Vector3(0, 180, 0);
         }
 
     }

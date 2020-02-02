@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
             {
                 // start docking game
                 eButton.SetActive(false);
-                repairMaster.StartRepairMode(difficulty, 10);
+                repairMaster.StartRepairMode(difficulty, 6000);
             }
         }
     }

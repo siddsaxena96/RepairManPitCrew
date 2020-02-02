@@ -58,7 +58,7 @@ public class RepairMaster : MonoBehaviour
         if (colMaster != null)
         {
             colMaster.InProgress += RepairProgress;
-            StartRepairMode(difficultyLevel.Basic, 10);
+            // StartRepairMode(difficultyLevel.Basic, 10);
         }
 
 
@@ -86,7 +86,7 @@ public class RepairMaster : MonoBehaviour
         WaitForSeconds wait = new WaitForSeconds(scoringSensitivity);
         while (true)
         {
-            progress += (float)playerScoreMultiplier * repairStatus;
+            progress += (float)playerScoreMultiplier * (float)( repairStatus == -1 ? 0.1 : 1 );
             progress = ClampedFloat(progress, 0, 100);
             progressBar.BarValue = progress;
             //Color alphaChanel = new Color();
@@ -156,9 +156,12 @@ public class RepairMaster : MonoBehaviour
         SetDifficulty(diff);
         while (progress != WinValue)
         {
-            npcRB.gravityScale = 20;
-            yield return new WaitForSeconds(UnityEngine.Random.Range(npcMinRefreshTime, npcMaxRefreshTime));
+            float rate = UnityEngine.Random.Range(npcMinRefreshTime, npcMaxRefreshTime) / 2;
+            npcRB.gravityScale = 0;
+            yield return new WaitForSeconds(rate);
             npcRB.gravityScale = 1;
+            yield return new WaitForSeconds(rate);
+            npcRB.gravityScale = 5;
             npcRB.AddForce(new Vector2(0, 1) * npcPower, ForceMode2D.Impulse);
         }
         if (timerCoroutine != null)
