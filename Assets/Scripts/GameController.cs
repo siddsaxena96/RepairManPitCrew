@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController = null;
+    [SerializeField] private RepairMaster repairMaster = null;
     [SerializeField] private Mover[] backgroundMovers = null;
     [SerializeField] private ObstacleSpawner obstacleSpawner = null;
     [SerializeField] private Slider distanceSlider = null;
@@ -14,14 +17,20 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform brokenCycleSpawnPoint = null;
     [SerializeField] private GameObject[] healthHearts = null;
 
+    [Header("Game Narrative")]
+    [SerializeField] private GameObject narrativePanel = null;
+    [SerializeField] private string[] introSequence = null;
+    [SerializeField] private string gameOver = null;
+    [SerializeField] private string gameWon = null;
+    [SerializeField] private TMP_Text mainText = null;
+    [SerializeField] private Button nextButton = null;
+    [SerializeField] private Button closeButton = null;
+
     private int currentWait = 0;
     private bool pursuitOn = true;
     private int currentHealth = 0;
-
-    private void Awake()
-    {
-        StartGame();
-    }
+    private int narrativeCount = 0;
+    private BrokenCycleBehaviour brokenCycleBehaviour = null;
 
     public void StartGame()
     {
@@ -49,7 +58,8 @@ public class GameController : MonoBehaviour
             }
         }
         Debug.Log("Caught up to cycle");
-        Instantiate(brokenCycle, brokenCycleSpawnPoint.position, Quaternion.identity);
+        obstacleSpawner.BlockRow(brokenCycleSpawnPoint);
+        brokenCycleBehaviour = Instantiate(brokenCycle, brokenCycleSpawnPoint.position, Quaternion.identity).GetComponent<BrokenCycleBehaviour>();
         yield return null;
     }
 
@@ -58,5 +68,37 @@ public class GameController : MonoBehaviour
         currentHealth--;
         if (currentHealth >= 0)
             healthHearts[currentHealth].SetActive(false);
+    }
+
+    public void OnRepaired(bool obj)
+    {
+        if (obj && brokenCycleBehaviour != null)
+        {
+            brokenCycleBehaviour.RushAhead();
+            distanceSlider.value = 1;
+            brokenCycleBehaviour = null;
+            pursuitOn = true;
+            repairMaster.OnRepaired -= OnRepaired;
+            StartCoroutine(ReachTillCycleCoroutine());
+        }
+    }
+
+    public void OnNextClicked()
+    {
+        if (narrativeCount == introSequence.Length - 1)
+        {
+            OnIntroSequenceOver();
+            return;
+        }
+        narrativeCount++;
+        mainText.text = introSequence[narrativeCount];
+    }
+
+    public void OnIntroSequenceOver()
+    {
+        nextButton.gameObject.SetActive(false);
+        closeButton.gameObject.SetActive(true);
+        narrativePanel.SetActive(false);
+        StartGame();
     }
 }

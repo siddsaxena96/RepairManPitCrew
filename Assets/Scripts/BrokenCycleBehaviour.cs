@@ -20,4 +20,9 @@ public class BrokenCycleBehaviour : MonoBehaviour
         if (rb.position.x <= 0)
             rb.velocity = Vector2.zero;
     }
+
+    public void RushAhead()
+    {
+        rb.velocity = transform.right * Mathf.Abs(speed) * 2;
+    }
 }

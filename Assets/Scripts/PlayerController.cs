@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameController gameController = null;
     [SerializeField] private Rigidbody2D rb = null;
     [SerializeField] private Animator animator = null;
     [Space]
@@ -35,7 +36,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ProgressBarCircle dockPB = null;
     [SerializeField] private GameObject eButton = null;
     public float minX, maxX = 0f;
-
     public AudioClip ohyeah, oh, bicycle, creepyLaugh, kharate, powerUp, negative = null;
     [SerializeField] private TMP_Text scoreText = null;
     private int score = 0;
@@ -115,9 +115,12 @@ public class PlayerController : MonoBehaviour
         switch (other.tag)
         {
             case "Obstacle":
-                CameraShake.instance.Shake(0.05f, 0.5f);
-                AudioPlayer.Instance.PlayOneShot(negative);
-                onObstuctionHit.Invoke();
+                if (canDock)
+                {
+                    CameraShake.instance.Shake(0.05f, 0.5f);
+                    AudioPlayer.Instance.PlayOneShot(negative);
+                    onObstuctionHit.Invoke();
+                }
                 //transform.position = new Vector2(-8, transform.position.y);
                 break;
             case "CYCLIST":
@@ -177,6 +180,7 @@ public class PlayerController : MonoBehaviour
     void REPAIR()
     {
         repairMaster.OnRepaired += OnRepairCompleted;
+        repairMaster.OnRepaired += gameController.OnRepaired;
         AudioPlayer.Instance.PlayOneShot(bicycle);
     }
 
@@ -188,8 +192,12 @@ public class PlayerController : MonoBehaviour
         {
             score++;
             scoreText.text = score.ToString();
+            canDock = true;
         }
         AudioPlayer.Instance.PlayOneShot((status == true ? ohyeah : negative));
         print("Won : " + status);
+        repairMaster.OnRepaired -= OnRepairCompleted;
     }
+
+    
 }

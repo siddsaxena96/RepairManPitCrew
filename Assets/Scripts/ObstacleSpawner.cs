@@ -6,14 +6,14 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] private bool spawnOn = true;
     [Header("Road Obstacles")]
-    [SerializeField] private Transform[] obstacleSpawnPositions = null;
+    [SerializeField] private List<Transform> obstacleSpawnPositions = null;
     [SerializeField] private GameObject[] obstaclePrefabs = null;
 
     [Header("Nange Insaan")]
     [SerializeField] private Transform[] nangeSpawnPos = null;
     [SerializeField] private Transform[] nangeInsaan = null;
     [SerializeField] private float nangeSpawnFrequency = 1f;
-    
+
     [Header("Nange Insaan Path Settings")]
     public float MoveSpeed = 5.0f;
     public float frequency = 20.0f;
@@ -23,7 +23,9 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private AudioClip creepyLaugh, death = null;
 
     private Vector3 axis;
-    private Coroutine nangeSpawn = null;    
+    private Coroutine nangeSpawn = null;
+    private Transform blockedRow = null;
+
 
     IEnumerator NangeSpawn()
     {
@@ -67,10 +69,25 @@ public class ObstacleSpawner : MonoBehaviour
     {
         while (spawnOn)
         {
-            Transform spawnPoint = obstacleSpawnPositions[Random.Range(0, obstacleSpawnPositions.Length)];
+            Transform spawnPoint = obstacleSpawnPositions[Random.Range(0, obstacleSpawnPositions.Count)];
             GameObject temp = Instantiate(obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)], spawnPoint.position, Quaternion.identity);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(3f);
         }
         yield return null;
+    }
+
+    public void BlockRow(Transform rowToBlock)
+    {
+        blockedRow = rowToBlock;
+        if (obstacleSpawnPositions.Contains(rowToBlock))
+            obstacleSpawnPositions.Remove(rowToBlock);
+    }
+
+    public void UnblockRow()
+    {
+        if (blockedRow != null)
+        {
+            obstacleSpawnPositions.Add(blockedRow);
+        }
     }
 }
