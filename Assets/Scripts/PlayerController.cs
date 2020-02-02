@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int currentRow = 3;
     [SerializeField] private Vector2 rowJumpDistance = Vector2.zero;
     [SerializeField] private Vector3 scaleChange = Vector2.zero;
+    public UnityEvent onObstuctionHit = new UnityEvent();
+    
     [Space]
 
     public float maxSpeed = 7;
@@ -111,6 +114,7 @@ public class PlayerController : MonoBehaviour
             case "Obstacle":
                 CameraShake.instance.Shake(0.05f, 0.5f);               
                 AudioPlayer.Instance.PlayOneShot(negative);
+                onObstuctionHit.Invoke();
                 //transform.position = new Vector2(-8, transform.position.y);
                 break;
             case "CYCLIST":

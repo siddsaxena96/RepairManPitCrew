@@ -12,9 +12,11 @@ public class GameController : MonoBehaviour
     [SerializeField] private int secondsTillCycle = 15;
     [SerializeField] private GameObject brokenCycle = null;
     [SerializeField] private Transform brokenCycleSpawnPoint = null;
+    [SerializeField] private GameObject[] healthHearts = null;
 
     private int currentWait = 0;
     private bool pursuitOn = true;
+    private int currentHealth = 0;
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        currentHealth = healthHearts.Length;
         for (int i = 0; i < backgroundMovers.Length; i++)
             backgroundMovers[i].StartMoving();
         obstacleSpawner.StartSpawning();
@@ -46,7 +49,14 @@ public class GameController : MonoBehaviour
             }
         }
         Debug.Log("Caught up to cycle");
-        Instantiate(brokenCycle,brokenCycleSpawnPoint.position,Quaternion.identity);
+        Instantiate(brokenCycle, brokenCycleSpawnPoint.position, Quaternion.identity);
         yield return null;
+    }
+
+    public void ReduceHealth()
+    {
+        currentHealth--;
+        if (currentHealth >= 0)
+            healthHearts[currentHealth].SetActive(false);
     }
 }

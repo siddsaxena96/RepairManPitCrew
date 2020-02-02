@@ -654,6 +654,12 @@ MonoBehaviour:
   brokenCycle: {fileID: 3784765930096492725, guid: 935cfe8bc65ef884d8bf325c6f8c2138,
     type: 3}
   brokenCycleSpawnPoint: {fileID: 268486284}
+  healthHearts:
+  - {fileID: 1530094338}
+  - {fileID: 2058383904}
+  - {fileID: 1630405781}
+  - {fileID: 2091443408}
+  - {fileID: 958236872}
 --- !u!4 &838292569
 Transform:
   m_ObjectHideFlags: 0
@@ -1579,6 +1585,20 @@ MonoBehaviour:
   currentRow: 3
   rowJumpDistance: {x: 0, y: 1.5}
   scaleChange: {x: 0.15, y: 0.15, z: 0}
+  onObstuctionHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 838292568}
+        m_MethodName: ReduceHealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   maxSpeed: 7
   velocity: {x: 0, y: 0}
   move: 1
