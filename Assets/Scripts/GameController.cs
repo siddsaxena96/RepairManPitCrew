@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private ParticleSystem rainParticleSystem = null;
 
     [Header("Game Narrative")]
+    [SerializeField] private int gameDuration = 180;
+    [SerializeField] private TMP_Text timerText = null;
     [SerializeField] private GameObject narrativePanel = null;
     [SerializeField] private string[] introSequence = null;
     [SerializeField] private string gameOver = null;
@@ -45,6 +47,18 @@ public class GameController : MonoBehaviour
         playerController.move = true;
         currentWait = secondsTillCycle;
         StartCoroutine(ReachTillCycleCoroutine());
+        StartCoroutine(StartGameTimer());
+    }
+
+    private IEnumerator StartGameTimer()
+    {
+        int time = gameDuration;
+        while (time > 0)
+        {
+            timerText.text = (int)time / 60 + " : " + (int)time % 60;
+            yield return new WaitForSeconds(1);
+            time--;
+        }
     }
 
     IEnumerator ReachTillCycleCoroutine()
