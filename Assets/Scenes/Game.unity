@@ -1207,7 +1207,7 @@ MonoBehaviour:
   - {fileID: 958236872}
   snowParticleSystem: {fileID: 956646653}
   rainParticleSystem: {fileID: 1906514112}
-  gameDuration: 30
+  gameDuration: 180
   timerText: {fileID: 1888441454}
   narrativePanel: {fileID: 740524958}
   introSequence:
