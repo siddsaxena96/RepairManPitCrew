@@ -13,23 +13,13 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private Transform[] nangeSpawnPos = null;
     [SerializeField] private Transform[] nangeInsaan = null;
     [SerializeField] private float nangeSpawnFrequency = 1f;
+    
     [Header("Nange Insaan Path Settings")]
     public float MoveSpeed = 5.0f;
     public float frequency = 20.0f;
     public float magnitude = 10f;
     private Vector3 axis;
-    private Coroutine nangeSpawn = null;
-
-
-    private void Awake()
-    {
-        StartSpawning();
-        if (nangeSpawn == null)
-        {
-            nangeSpawn = StartCoroutine(NangeSpawn());
-        }
-        axis = Vector3.up;
-    }
+    private Coroutine nangeSpawn = null;    
 
     IEnumerator NangeSpawn()
     {
@@ -61,6 +51,11 @@ public class ObstacleSpawner : MonoBehaviour
     {
         spawnOn = true;
         StartCoroutine(ObstacleSpawnerCoroutine());
+        if (nangeSpawn == null)
+        {
+            nangeSpawn = StartCoroutine(NangeSpawn());
+        }
+        axis = Vector3.up;
     }
 
     IEnumerator ObstacleSpawnerCoroutine()
