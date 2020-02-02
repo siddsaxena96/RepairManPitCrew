@@ -446,7 +446,7 @@ MonoBehaviour:
   - {fileID: 168361003}
   - {fileID: 969136854}
   nangeInsaan:
-  - {fileID: 5273971467641211217, guid: 095fee45fba50c7469046de2318e485a, type: 3}
+  - {fileID: 1502721732351446397, guid: 4c2ee968678cd67488c5039c2f480e72, type: 3}
   nangeSpawnFrequency: 10
   MoveSpeed: -5
   frequency: 1
@@ -1181,6 +1181,8 @@ MonoBehaviour:
   - {fileID: 1630405781}
   - {fileID: 2091443408}
   - {fileID: 958236872}
+  snowParticleSystem: {fileID: 956646653}
+  rainParticleSystem: {fileID: 1906514112}
   narrativePanel: {fileID: 740524958}
   introSequence:
   - ITS THE YEAR 2030  Bicycle GP is the greatest sport in the world.
@@ -1445,6 +1447,12 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!198 &956646653 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 181539922378973766, guid: 63cd2dae38d20154992134ee1284c078,
+    type: 3}
+  m_PrefabInstance: {fileID: 2069770360}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &958236872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,6 +1944,11 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.scalar
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 188341068997794729, guid: 2d55f3b34355cf04e95ebafeac0c8b4a,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 188341068997794731, guid: 2d55f3b34355cf04e95ebafeac0c8b4a,
         type: 3}
       propertyPath: m_Name
@@ -1944,7 +1957,7 @@ PrefabInstance:
     - target: {fileID: 188341068997794731, guid: 2d55f3b34355cf04e95ebafeac0c8b4a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 188341068997794734, guid: 2d55f3b34355cf04e95ebafeac0c8b4a,
         type: 3}
@@ -3286,6 +3299,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1788765968}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &1906514112 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 188341068997794729, guid: 2d55f3b34355cf04e95ebafeac0c8b4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1116218403}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1976505389
 GameObject:
   m_ObjectHideFlags: 0
@@ -3539,6 +3558,11 @@ PrefabInstance:
     - target: {fileID: 181539922378973764, guid: 63cd2dae38d20154992134ee1284c078,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 181539922378973766, guid: 63cd2dae38d20154992134ee1284c078,
+        type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

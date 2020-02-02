@@ -17,6 +17,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform brokenCycleSpawnPoint = null;
     [SerializeField] private GameObject[] healthHearts = null;
 
+    [Header("Weather Particle Systems")]
+    [SerializeField] private ParticleSystem snowParticleSystem = null;
+    [SerializeField] private ParticleSystem rainParticleSystem = null;
+
     [Header("Game Narrative")]
     [SerializeField] private GameObject narrativePanel = null;
     [SerializeField] private string[] introSequence = null;
@@ -84,6 +88,16 @@ public class GameController : MonoBehaviour
         brokenCycleBehaviour = null;
         pursuitOn = true;
         repairMaster.OnRepaired -= OnRepaired;
+        if (UnityEngine.Random.Range(0, 2) == 0)
+        {
+            snowParticleSystem.Stop();
+            rainParticleSystem.Play();
+        }
+        else
+        {
+            rainParticleSystem.Stop();
+            snowParticleSystem.Play();
+        }
         StartCoroutine(ReachTillCycleCoroutine());
     }
 
