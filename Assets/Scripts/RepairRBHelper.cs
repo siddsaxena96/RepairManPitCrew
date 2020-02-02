@@ -11,17 +11,17 @@ public class RepairRBHelper : MonoBehaviour
 
     void Update()
     {
-        if (this.transform.localPosition.y < -200)
+        if (this.transform.localPosition.y < -141)
         {
             this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            this.transform.localPosition = new Vector3(0, -180, 0);
+            this.transform.localPosition = new Vector3(0, -140, 0);
 
 
         }
-        if (this.transform.localPosition.y > 200)
+        if (this.transform.localPosition.y > 141)
         {
             this.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            this.transform.localPosition = new Vector3(0, 180, 0);
+            this.transform.localPosition = new Vector3(0, 140, 0);
         }
 
     }

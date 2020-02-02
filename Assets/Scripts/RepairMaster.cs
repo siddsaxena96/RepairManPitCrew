@@ -86,7 +86,7 @@ public class RepairMaster : MonoBehaviour
         WaitForSeconds wait = new WaitForSeconds(scoringSensitivity);
         while (true)
         {
-            progress += (float)playerScoreMultiplier * (float)( repairStatus == -1 ? 0.1 : 1 );
+            progress += (float)playerScoreMultiplier * (float)(repairStatus == -1 ? 0.1 : 1);
             progress = ClampedFloat(progress, 0, 100);
             progressBar.BarValue = progress;
             //Color alphaChanel = new Color();
@@ -118,8 +118,8 @@ public class RepairMaster : MonoBehaviour
     public void StartRepairMode(difficultyLevel diff, float timer)
     {
         completed = false;
-        repairGameobject.SetActive(true);
         CheckAndClearCoroutine();
+        repairGameobject.SetActive(true);
         StartCoroutine(RepairExpireTimer(diff, timer));
     }
 
@@ -209,6 +209,7 @@ public class RepairMaster : MonoBehaviour
         if (npcCoroutine != null)
             npcCoroutine = null;
         progress = -1;
-        progressBar.BarValue = 0;
+        if (progressBar != null)
+            progressBar.BarValue = 1;
     }
 }

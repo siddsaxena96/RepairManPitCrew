@@ -16,7 +16,7 @@ public class ProgressBar : MonoBehaviour
     public int TitleFontSize = 10;
 
     [Header("Bar Setting")]
-    public Color BarColor;   
+    public Color BarColor;
     public Color BarBackGroundColor;
     public Sprite BarBackGroundSprite;
     [Range(1f, 100f)]
@@ -28,7 +28,7 @@ public class ProgressBar : MonoBehaviour
     public bool repeat = false;
     public float RepeatRate = 1f;
 
-    private Image bar, barBackground;
+    public Image bar, barBackground;
     private float nextPlay;
     private AudioSource audiosource;
     private Text txtTitle;
@@ -46,26 +46,26 @@ public class ProgressBar : MonoBehaviour
         }
     }
 
-        
+
 
     private void Awake()
     {
-        bar = transform.Find("Bar").GetComponent<Image>();
-        barBackground = GetComponent<Image>();
-        txtTitle = transform.Find("Text").GetComponent<Text>();
-        barBackground = transform.Find("BarBackground").GetComponent<Image>();
+        //bar = transform.Find("Bar").GetComponent<Image>();
+        //barBackground = GetComponent<Image>();
+        //txtTitle = transform.Find("Text").GetComponent<Text>();
+        //barBackground = transform.Find("BarBackground").GetComponent<Image>();
         audiosource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
-        txtTitle.text = Title;
-        txtTitle.color = TitleColor;
-        txtTitle.font = TitleFont;
-        txtTitle.fontSize = TitleFontSize;
+        // txtTitle.text = Title;
+        // txtTitle.color = TitleColor;
+        // txtTitle.font = TitleFont;
+        // txtTitle.fontSize = TitleFontSize;
 
         bar.color = BarColor;
-        barBackground.color = BarBackGroundColor; 
+        barBackground.color = BarBackGroundColor;
         barBackground.sprite = BarBackGroundSprite;
 
         UpdateValue(barValue);
@@ -75,16 +75,20 @@ public class ProgressBar : MonoBehaviour
 
     void UpdateValue(float val)
     {
-        bar.fillAmount = val / 100;
-        txtTitle.text = Title + " " + val + "%";
+
+        if (bar != null)
+            bar.fillAmount = val / 100;
+        //  txtTitle.text = Title + " " + val + "%";
 
         if (Alert >= val)
         {
-            bar.color = BarAlertColor;
+            if (bar != null)
+                bar.color = BarAlertColor;
         }
         else
         {
-            bar.color = BarColor;
+            if (bar != null)
+                bar.color = BarColor;
         }
 
     }
@@ -93,23 +97,23 @@ public class ProgressBar : MonoBehaviour
     private void Update()
     {
         if (!Application.isPlaying)
-        {           
+        {
             UpdateValue(50);
-            txtTitle.color = TitleColor;
-            txtTitle.font = TitleFont;
-            txtTitle.fontSize = TitleFontSize;
+            // txtTitle.color = TitleColor;
+            // txtTitle.font = TitleFont;
+            // txtTitle.fontSize = TitleFontSize;
 
             bar.color = BarColor;
             barBackground.color = BarBackGroundColor;
 
-            barBackground.sprite = BarBackGroundSprite;           
+            barBackground.sprite = BarBackGroundSprite;
         }
         else
         {
             if (Alert >= barValue && Time.time > nextPlay)
             {
                 nextPlay = Time.time + RepeatRate;
-                audiosource.PlayOneShot(sound);
+                //audiosource.PlayOneShot(sound);
             }
         }
     }
