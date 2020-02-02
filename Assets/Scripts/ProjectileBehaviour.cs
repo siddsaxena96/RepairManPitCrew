@@ -23,7 +23,7 @@ public class ProjectileBehaviour : MonoBehaviour
         if (col.gameObject.tag == "NANGE")
         {
             AudioPlayer.Instance.PlayOneShot(oh);
-            Instantiate(powerUp, col.transform.position, Quaternion.identity);
+            //Instantiate(powerUp, col.transform.position, Quaternion.identity);
             Destroy(col.gameObject);
             Destroy(this.gameObject);
         }
