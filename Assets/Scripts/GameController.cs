@@ -75,12 +75,16 @@ public class GameController : MonoBehaviour
         if (obj && brokenCycleBehaviour != null)
         {
             brokenCycleBehaviour.RushAhead();
-            distanceSlider.value = 1;
-            brokenCycleBehaviour = null;
-            pursuitOn = true;
-            repairMaster.OnRepaired -= OnRepaired;
-            StartCoroutine(ReachTillCycleCoroutine());
         }
+        else if (!obj && brokenCycleBehaviour != null)
+        {
+            brokenCycleBehaviour.FallDown();
+        }
+        distanceSlider.value = 1;
+        brokenCycleBehaviour = null;
+        pursuitOn = true;
+        repairMaster.OnRepaired -= OnRepaired;
+        StartCoroutine(ReachTillCycleCoroutine());
     }
 
     public void OnNextClicked()

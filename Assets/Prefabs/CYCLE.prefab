@@ -422,6 +422,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 6922306578165600663}
   stopPoint: {x: 0, y: 0}
+  boxCollider: {fileID: 3299751921833544095}
+  animators:
+  - {fileID: 1593793191181075986}
+  - {fileID: 514236616872010326}
   speed: -5
 --- !u!1 &2136019750709808897
 GameObject:

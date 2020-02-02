@@ -66,20 +66,17 @@ public class PlayerController : MonoBehaviour
             {
                 AttemptRowJump(false);
             }
-        }
-        else
-        {
-            //animator.Play("PlayerIdle");
-        }
-
-        if (fireEnable)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
+            
+            if (Input.GetMouseButtonDown(0))
             {
                 Transform fired = Instantiate(wrenchTransform, wrenchSpawnPos.position, this.transform.rotation);
                 fired.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed, ForceMode2D.Impulse);
                 Destroy(fired.gameObject, 1.5f);
             }
+        }
+        else
+        {
+            //animator.Play("PlayerIdle");
         }
 
         if (canDock == false)
@@ -179,6 +176,7 @@ public class PlayerController : MonoBehaviour
 
     void REPAIR()
     {
+        animator.Play("Repair 1");
         repairMaster.OnRepaired += OnRepairCompleted;
         repairMaster.OnRepaired += gameController.OnRepaired;
         AudioPlayer.Instance.PlayOneShot(bicycle);
@@ -188,16 +186,17 @@ public class PlayerController : MonoBehaviour
     {
         // true - Completed
         // false - failed
+        canDock = true;
         if (status)
         {
             score++;
             scoreText.text = score.ToString();
-            canDock = true;
         }
         AudioPlayer.Instance.PlayOneShot((status == true ? ohyeah : negative));
         print("Won : " + status);
         repairMaster.OnRepaired -= OnRepairCompleted;
+        animator.Play("Idel");
     }
 
-    
+
 }
