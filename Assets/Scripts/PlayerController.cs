@@ -109,8 +109,7 @@ public class PlayerController : MonoBehaviour
         switch (other.tag)
         {
             case "Obstacle":
-                CameraShake.instance.Shake(0.05f, 0.5f);
-                AttemptRowJump(false);
+                CameraShake.instance.Shake(0.05f, 0.5f);               
                 AudioPlayer.Instance.PlayOneShot(negative);
                 //transform.position = new Vector2(-8, transform.position.y);
                 break;
