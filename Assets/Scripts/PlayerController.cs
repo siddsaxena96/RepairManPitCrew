@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 rowJumpDistance = Vector2.zero;
     [SerializeField] private Vector3 scaleChange = Vector2.zero;
     public UnityEvent onObstuctionHit = new UnityEvent();
-    
+
     [Space]
 
     public float maxSpeed = 7;
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviour
     public float minX, maxX = 0f;
 
     public AudioClip ohyeah, oh, bicycle, creepyLaugh, kharate, powerUp, negative = null;
+    [SerializeField] private TMP_Text scoreText = null;
+    private int score = 0;
     private float movex;
     private Coroutine dockingCoroutine, dTimeCoroutine = null;
     private bool canDock = true;
@@ -112,7 +115,7 @@ public class PlayerController : MonoBehaviour
         switch (other.tag)
         {
             case "Obstacle":
-                CameraShake.instance.Shake(0.05f, 0.5f);               
+                CameraShake.instance.Shake(0.05f, 0.5f);
                 AudioPlayer.Instance.PlayOneShot(negative);
                 onObstuctionHit.Invoke();
                 //transform.position = new Vector2(-8, transform.position.y);
@@ -181,6 +184,12 @@ public class PlayerController : MonoBehaviour
     {
         // true - Completed
         // false - failed
+        if (status)
+        {
+            score++;
+            scoreText.text = score.ToString();
+        }
+        AudioPlayer.Instance.PlayOneShot((status == true ? ohyeah : negative));
         print("Won : " + status);
     }
 }

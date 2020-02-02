@@ -18,6 +18,10 @@ public class ObstacleSpawner : MonoBehaviour
     public float MoveSpeed = 5.0f;
     public float frequency = 20.0f;
     public float magnitude = 10f;
+
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip creepyLaugh, death = null;
+
     private Vector3 axis;
     private Coroutine nangeSpawn = null;    
 
@@ -29,6 +33,7 @@ public class ObstacleSpawner : MonoBehaviour
             yield return wait;
             Transform tPosition = nangeSpawnPos[Random.Range(0, nangeSpawnPos.Length)];
             Transform nanga = Instantiate(nangeInsaan[Random.Range(0, nangeInsaan.Length)], tPosition.position, Quaternion.identity, tPosition);
+            AudioPlayer.Instance.PlayOneShot(creepyLaugh);
             StartCoroutine(MoveInSineWave(nanga));
         }
     }
