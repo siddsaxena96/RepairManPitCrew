@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Sprite: {fileID: -5740339494785736090, guid: 79f8332e08372b341943679469265934,
     type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -649,6 +649,11 @@ MonoBehaviour:
   - {fileID: 1286979601}
   - {fileID: 1075580485}
   obstacleSpawner: {fileID: 233183387}
+  distanceSlider: {fileID: 1553678653}
+  secondsTillCycle: 15
+  brokenCycle: {fileID: 3784765930096492725, guid: 935cfe8bc65ef884d8bf325c6f8c2138,
+    type: 3}
+  brokenCycleSpawnPoint: {fileID: 268486284}
 --- !u!4 &838292569
 Transform:
   m_ObjectHideFlags: 0
@@ -2372,10 +2377,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1180907359}
   m_HandleRect: {fileID: 120068606}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MinValue: 1
+  m_MaxValue: 15
+  m_WholeNumbers: 1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
