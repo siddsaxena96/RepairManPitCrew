@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
                 if (canDock)
                 {
                     CameraShake.instance.Shake(0.05f, 0.5f);
-                    AudioPlayer.Instance.PlayOneShot(negative);
+                    AudioPlayer.Instance.PlayOneShot(oh);
                     onObstuctionHit.Invoke();
                 }
                 //transform.position = new Vector2(-8, transform.position.y);
