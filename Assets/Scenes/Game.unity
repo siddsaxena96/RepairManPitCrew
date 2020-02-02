@@ -1048,7 +1048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &758090761
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1256,7 +1256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &886079525
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1841,7 +1841,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Congrats ! You've Saved The Race !. \nPress Restart To Try Again"
+  m_text: "ITS THE YEAR 2030  \nBicycle GP is the greatest sport in the world."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 87202c40347f8014ebba665040026650, type: 2}
   m_sharedMaterial: {fileID: 202574404719276264, guid: 87202c40347f8014ebba665040026650,
@@ -1911,10 +1911,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1104090005}
-    characterCount: 63
+    characterCount: 66
     spriteCount: 0
-    spaceCount: 12
-    wordCount: 10
+    spaceCount: 14
+    wordCount: 13
     linkCount: 0
     lineCount: 3
     pageCount: 1

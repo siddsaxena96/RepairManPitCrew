@@ -59,6 +59,7 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(1);
             time--;
         }
+        EndGame(true);
     }
 
     IEnumerator ReachTillCycleCoroutine()
@@ -86,6 +87,13 @@ public class GameController : MonoBehaviour
         currentHealth--;
         if (currentHealth >= 0)
             healthHearts[currentHealth].SetActive(false);
+        if (currentHealth == 0)
+        {            
+            for (int i = 0; i < backgroundMovers.Length; i++)
+                backgroundMovers[i].StopMoving();            
+            playerController.move = false;
+            EndGame(false);
+        }
     }
 
     public void OnRepaired(bool obj)
@@ -132,5 +140,11 @@ public class GameController : MonoBehaviour
         closeButton.gameObject.SetActive(true);
         narrativePanel.SetActive(false);
         StartGame();
+    }
+
+    public void EndGame(bool status)
+    {
+        mainText.text = status ? gameWon : gameOver;
+        narrativePanel.SetActive(true);
     }
 }
