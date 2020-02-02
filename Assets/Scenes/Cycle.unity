@@ -1270,6 +1270,9 @@ MonoBehaviour:
   currentRow: 3
   rowJumpDistance: {x: 0, y: 1.5}
   scaleChange: {x: 0.15, y: 0.15, z: 0}
+  onObstuctionHit:
+    m_PersistentCalls:
+      m_Calls: []
   maxSpeed: 7
   velocity: {x: 0, y: 0}
   move: 1
