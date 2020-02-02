@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform wrenchSpawnPos = null;
     [SerializeField] private int projectileSpeed = 10;
     [SerializeField] private RepairMaster repairMaster = null;
+    [SerializeField] private int wrenchAmmo = 5;
+    [SerializeField] private int reloadTime = 5;
+    [SerializeField] private TMP_Text ammoText = null;
 
     [Space]
     [SerializeField] private difficultyLevel difficulty = difficultyLevel.Basic;
@@ -38,12 +41,19 @@ public class PlayerController : MonoBehaviour
     public float minX, maxX = 0f;
     public AudioClip ohyeah, oh, bicycle, creepyLaugh, kharate, powerUp, negative = null;
     [SerializeField] private TMP_Text scoreText = null;
+
     private int score = 0;
     private float movex;
     private Coroutine dockingCoroutine, dTimeCoroutine = null;
     private bool canDock = true;
     private float dockingTime = 2f;
+    private int currentAmmo = 0;
 
+    private void Awake()
+    {
+        ammoText.text = wrenchAmmo.ToString();
+        currentAmmo = wrenchAmmo;
+    }
 
     public void Update()
     {
@@ -66,12 +76,22 @@ public class PlayerController : MonoBehaviour
             {
                 AttemptRowJump(false);
             }
-            
+
             if (Input.GetMouseButtonDown(0))
             {
-                Transform fired = Instantiate(wrenchTransform, wrenchSpawnPos.position, this.transform.rotation);
-                fired.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed, ForceMode2D.Impulse);
-                Destroy(fired.gameObject, 1.5f);
+                if (currentAmmo > 0)
+                {
+                    Transform fired = Instantiate(wrenchTransform, wrenchSpawnPos.position, this.transform.rotation);
+                    fired.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed, ForceMode2D.Impulse);
+                    Destroy(fired.gameObject, 1.5f);
+                    currentAmmo--;
+                    ammoText.text = currentAmmo.ToString();
+                }
+
+                if (currentAmmo == 0)
+                {
+                    StartCoroutine(ReloadWrenchAmmo());
+                }
             }
         }
         else
@@ -148,6 +168,13 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    IEnumerator ReloadWrenchAmmo()
+    {
+        yield return new WaitForSeconds(reloadTime);
+        currentAmmo = wrenchAmmo;
+        ammoText.text = currentAmmo.ToString();
     }
 
     IEnumerator DockingCoroutine()
